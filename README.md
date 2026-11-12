@@ -1,16 +1,18 @@
-# FirstByte project template
+# FirstByte Resource Hub
 
-<!--
-  TODO when you make a project from this template:
-  1. Change the heading above to your project's name.
-  2. Replace this comment with one or two sentences about what the project does
-     and who uses it.
-  3. Follow SETUP.md (leads only).
--->
+One place for FirstByte members to find workshops (with their photos, slides
+and materials) and a log of past meetings and events: workshops, stand-ups,
+GMs and FirstBites. You can browse by semester and team, and search, filter
+and sort.
 
-The starting point for FirstByte web projects. It has a working Next.js app,
-code checks that run on every pull request, and the team's GitHub and Claude
-Code setup.
+**Goal:** a working full-stack version by **December 11, 2026**. The work is
+split into three sprints. See the milestones and the project board on GitHub.
+
+| Sprint   | Ends   | Focus                                                  |
+| -------- | ------ | ------------------------------------------------------ |
+| Sprint 1 | Nov 18 | Front end: pages and components on dummy data          |
+| Sprint 2 | Dec 2  | Back end: Supabase, sign-in, search/filter/sort, edits |
+| Sprint 3 | Dec 11 | Polish: empty and loading states, phones, bug fixes    |
 
 **Owner:** the website team lead (currently [@hecbatista](https://github.com/hecbatista)).
 Ask them before changing the template itself.
@@ -105,39 +107,45 @@ src/
     icon.png        The icon in the browser tab
     page.tsx        The home page (/)
     globals.css     Tailwind and the theme colors
-    example/        The example feature. Delete it (see below)
+    workshops/      /workshops
+    events/         /events
   components/
     ui/             shadcn components. Add more with: pnpm dlx shadcn@latest add <name>
                     (for example: pnpm dlx shadcn@latest add dialog)
                     Try not to edit these by hand.
     ...             Your own components go here, next to ui/
   lib/              Helpers that are not components
+    data/           Our data: types, dummy data and the functions to get it
 public/             Images and files served as they are (public/firstbyte-logo.png is /firstbyte-logo.png)
 docs/guides/        How to add a database, login and other things
 ```
 
-Tests go next to the file they test: `links.ts` and `links.test.ts`.
+Tests go next to the file they test: `semester.ts` and `semester.test.ts`.
 
-## The example feature
+## The data
 
-Open [http://localhost:3000/example](http://localhost:3000/example). It's a
-small "useful links" page with a form. Its files are in
-[`src/app/example/`](src/app/example), and each one says at the top what it
-does. Read them in this order:
+There are two kinds of things. Their types are in
+[`src/lib/data/types.ts`](src/lib/data/types.ts).
 
-1. `links.ts`: the data, and the rules a new link must follow
-2. `links.test.ts`: tests for those rules
-3. `actions.ts`: a server action, code the form runs on the server
-4. `add-link-form.tsx`: the form
-5. `page.tsx`: the page that puts it all together
+- **Workshop:** teaching content we can run again and again. It has a name, a
+  description, free tags (like `cs`, `stem`, `python`, `beginner`), photos,
+  materials links and slides links. Each one has its own page at
+  `/workshops/<slug>`.
+- **ClubEvent:** something that happened on a date: a workshop session, a
+  stand-up, a GM or a FirstBite. It belongs to one team, or is club-wide. A
+  workshop session can point at the Workshop it ran. The semester (like
+  "Fall 2026") is worked out from the date by
+  [`getSemester`](src/lib/data/semester.ts).
 
-### Delete the example
+**Get data only through the functions in
+[`src/lib/data/index.ts`](src/lib/data/index.ts)**, for example
+`await getWorkshops()`. Don't import the files in `src/lib/data/dummy/`
+directly. For now the functions read dummy data. In Sprint 2 they will read
+from Supabase, and because pages only use the functions, the pages won't need
+to change.
 
-When you start real work:
-
-1. Delete the folder `src/app/example/`.
-2. In `src/app/page.tsx`, delete the "See the example feature" button.
-3. Run `pnpm lint && pnpm typecheck && pnpm build` to check nothing else used it.
+The dummy photos are placeholders in `public/workshops/`. The dummy links all
+point at `example.com`.
 
 ## Guides
 
