@@ -19,7 +19,7 @@ export function WorkshopCard({ workshop }: { workshop: Workshop }) {
       href={`/workshops/${workshop.slug}`}
       className="block rounded-xl focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
     >
-      <Card className="h-full">
+      <Card className="h-full pt-0">
         {photo ? (
           <div className="relative aspect-[16/9] w-full overflow-hidden">
             <Image
