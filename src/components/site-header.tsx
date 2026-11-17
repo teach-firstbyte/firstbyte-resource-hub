@@ -5,12 +5,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/workshops", label: "Workshops" },
-  { href: "/events", label: "Events" },
-];
+import { SiteNav } from "@/components/site-nav";
 
 export function SiteHeader() {
   return (
@@ -20,20 +15,7 @@ export function SiteHeader() {
           <Image src="/firstbyte-logo.png" alt="" width={32} height={32} />
           FirstByte Resource Hub
         </Link>
-        <nav aria-label="Main">
-          <ul className="flex items-center gap-4 text-sm">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <SiteNav />
       </div>
     </header>
   );
